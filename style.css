@@ -1,0 +1,157 @@
+/* variables */
+
+:root {
+	--clr-neutral-50: #fafafa;
+	--clr-neutral-200: #e5e5e5;
+	--clr-neutral-400: #a3a3a3;
+	--clr-neutral-500: #737373;
+	--clr-neutral-800: #262626;
+	--clr-neutral-900: #171717;
+
+	--clr-blue-500: #3b82f6;
+
+	--clr-lime-700: #4d7c0f;
+}
+
+/* css reset */
+
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+	margin: 0;
+}
+
+ul[role='list'],
+ol[role='list'] {
+	list-style: none;
+}
+
+html:focus-within {
+	scroll-behavior: smooth;
+}
+
+body {
+	min-height: 100vh;
+	text-rendering: optimizeSpeed;
+	line-height: 1.5;
+}
+
+a:not([class]) {
+	text-decoration-skip-ink: auto;
+}
+
+img,
+picture {
+	max-width: 100%;
+	display: block;
+}
+
+input,
+button,
+textarea,
+select {
+	font: inherit;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html:focus-within {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}
+
+/* custom styling */
+
+.grid {
+	display: grid;
+}
+
+.flex {
+	display: flex;
+}
+
+.card {
+	border-radius: 1rem;
+	padding: 1rem;
+}
+
+.read {
+	background-image: linear-gradient(90deg, var(--clr-neutral-500), 70%, var(--clr-lime-700));
+}
+
+.unread {
+	background-image: linear-gradient(90deg, var(--clr-neutral-500), 70%, var(--clr-blue-500));
+}
+
+body {
+	background-color: var(--clr-neutral-900);
+	color: var(--clr-neutral-50);
+
+	grid-template-rows: auto 1fr auto;
+	gap: 1rem;
+}
+
+header {
+	background-color: var(--clr-neutral-800);
+	padding: 1rem;
+
+	justify-content: space-between;
+	align-items: center;
+}
+
+header button {
+	border: none;
+	background-color: var(--clr-neutral-200);
+	color: var(--clr-neutral-900);
+	font-weight: bold;
+	padding: 1rem;
+	border-radius: 2rem;
+}
+
+main {
+	display: unset;
+}
+
+.library {
+	padding: 1rem;
+
+	grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+	gap: 2rem;
+}
+
+.library .card {
+	justify-content: space-between;
+	align-items: center;
+}
+
+.library .card ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+footer {
+	background-color: var(--clr-neutral-800);
+	padding: 1rem;
+}

@@ -8,20 +8,53 @@
 	<link rel="stylesheet" href="./style.css">
 	<script src="./script.js" defer></script>
 </head>
-<body>
-	<header>
+<body class="grid">
+	<header class="flex">
 		<h1>Library</h1>
 		<button>add new book</button>
 	</header>
 	<main>
-		<div class="grid">
-			<div class="card"></div>
-			<div class="card"></div>
-			<div class="card"></div>
+		<div class="library grid">
+			<div class="card flex read">
+				<div>
+					<h1>The Hobbit</h1>
+					<h2>J.R.R. Tolkien</h2>
+				</div>
+				<ul>
+					<li>read</li>
+					<li>pages: 300</li>
+					<li>my rating: 4/5</li>
+					<li>genre: fantasy</li>
+				</ul>
+			</div>
+			<div class="card flex unread">
+				<div>
+					<h1>Animal Farm</h1>
+					<h2>George Orwell</h2>
+				</div>
+				<ul>
+					<li>unread</li>
+					<li>pages: 300</li>
+					<li>my rating: 4/5</li>
+					<li>genre: fantasy</li>
+				</ul>
+			</div>
+			<div class="card flex read">
+				<div>
+					<h1>The Giver</h1>
+					<h2>Lois Lowry</h2>
+				</div>
+				<ul>
+					<li>read</li>
+					<li>pages: 208</li>
+					<li>my rating: 3.5/5</li>
+					<li>genre: dystopia</li>
+				</ul>
+			</div>
 		</div>
 	</main>
 	<footer>
-		Product of Luci!
+		<p>Product of Luci!</p>
 	</footer>
 </body>
 </html>
