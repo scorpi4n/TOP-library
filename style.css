@@ -96,12 +96,6 @@ select {
 	border-radius: 1rem;
 	padding: 1rem;
 	box-shadow: 0 12px 12px -12px var(--clr-neutral-500);
-
-	transition: transform 200ms ease-in-out;
-}
-
-.card:hover {
-	transform: scale(1.015);
 }
 
 .read {
@@ -161,14 +155,31 @@ main {
 }
 
 .library .card {
+	transition: transform 200ms ease-in-out;
+
 	justify-content: space-between;
 	align-items: center;
+}
+
+.library .card:hover {
+	transform: scale(1.015);
 }
 
 .library .card ul {
 	padding: 0;
 	margin: 0;
 	list-style: none;
+	text-transform: capitalize;
+}
+
+.input-modal {
+	display: none;
+	/* display: block; */
+
+	background-color: var(--clr-neutral-800);
+	position: fixed;
+	justify-self: center;
+	align-self: center;
 }
 
 footer {

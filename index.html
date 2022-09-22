@@ -11,7 +11,7 @@
 <body class="grid">
 	<header class="flex">
 		<h1>Library</h1>
-		<button>add new book</button>
+		<button id="add-book">add new book</button>
 	</header>
 	<main>
 		<div class="library grid">
@@ -53,6 +53,38 @@
 			</div>
 		</div>
 	</main>
+	<div class="card input-modal">
+		<form action="#" method="post">
+			<ul>
+				<li>
+					<label for="book-title">Title:</label>
+					<input id="book-title" type="text">
+				</li>
+				<li>
+					<label for="book-author">Author:</label>
+					<input id="book-author" type="text">
+				</li>
+				<li>
+					<label for="book-pages">How many pages are in the book?</label>
+					<input id="book-pages" type="number" min="1" step="1">
+				</li>
+				<li>
+					<label for="book-genre">What genre is the book?</label>
+					<input id="book-genre" type="text">
+				</li>
+				<li>
+					<label for="book-rating">How would you rate the book?</label>
+					<input id="book-rating" type="number" max="5" min="1" step=".5">
+				</li>
+				<li>
+					<label for="book-read">Have you read the book?</label>
+					<input id="book-read" type="checkbox">
+				</li>
+			</ul>
+			<button type="button">Discard</button>
+			<button type="submit">Submit</button>
+		</form>
+	</div>
 	<footer>
 		<p>Product of Luci!</p>
 	</footer>
