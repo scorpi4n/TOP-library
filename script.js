@@ -13,16 +13,39 @@ Book.prototype.addBookToLibrary = function() {
 	myLibrary.push(this)
 }
 
-let addBookBtn = document.getElementById('add-book')
-addBookBtn.addEventListener('click', function() {
+function switchModal() {
 	let modal = document.getElementById('input-modal')
 	if (modal.style.display == 'block') {
 		modal.style.display = 'none'
-		addBookBtn.innerText = 'Add new book'
+		inputBookBtn.innerText = 'Add new book'
 	} else {
 		modal.style.display = 'block'
-		addBookBtn.innerText = 'Close'
+		inputBookBtn.innerText = 'Close'
 	}
+	let form = document.querySelector('form')
+	form.reset()
+}
+
+let inputBookBtn = document.getElementById('add-book')
+inputBookBtn.addEventListener('click', switchModal)
+
+let resetBtn = document.querySelector('.discard')
+resetBtn.addEventListener('click', switchModal)
+
+let addBookBtn = document.querySelector('.submit')
+addBookBtn.addEventListener('click', function() {
+	let title = document.getElementById('book-title').value
+	let author = document.getElementById('book-author').value
+	let read = document.getElementById('book-read').checked
+	console.log(read.value)
+	let pages = document.getElementById('book-pages').value
+	let rating = document.getElementById('book-rating').value
+	let genre = document.getElementById('book-genre').value
+
+	book = new Book(title, author, read, pages, rating, genre)
+	book.addBookToLibrary()
+	switchModal()
+	createBookCards(myLibrary)
 })
 
 function createBookCards(catalog) {
