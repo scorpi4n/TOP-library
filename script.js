@@ -18,10 +18,10 @@ addBookBtn.addEventListener('click', function() {
 	let modal = document.getElementById('input-modal')
 	if (modal.style.display == 'block') {
 		modal.style.display = 'none'
-		addBookBtn.innerText = 'add new book'
+		addBookBtn.innerText = 'Add new book'
 	} else {
 		modal.style.display = 'block'
-		addBookBtn.innerText = 'close'
+		addBookBtn.innerText = 'Close'
 	}
 })
 
