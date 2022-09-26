@@ -91,14 +91,13 @@ function createBookCards(catalog) {
 			addBookBtn.addEventListener('click', function() {
 				if (catalog[entry].title == titleInput.value) {
 					catalog[entry].author = authorInput.value
-					catalog[entry].read = readInput.value
+					catalog[entry].read = readInput.checked
 					catalog[entry].pages = pagesInput.value
 					catalog[entry].rating = ratingInput.value
 					catalog[entry].genre = genreInput.value
 				}
-
-					switchModal()
-					createBookCards(myLibrary)
+				switchModal()
+				createBookCards(myLibrary)
 			})
 		})
 		edit.appendChild(pencil)
