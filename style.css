@@ -160,6 +160,7 @@ main {
 }
 
 .library .card {
+	position: relative;
 	transition: transform 200ms ease-in-out;
 
 	justify-content: space-between;
@@ -175,6 +176,22 @@ main {
 	margin: 0;
 	list-style: none;
 	text-transform: capitalize;
+}
+
+.library .card .edit {
+	padding: 0;
+	margin: 0;
+	border: none;
+	background: none;
+	width: 24px;
+	height: 24px;
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+
+.library .card .edit:hover {
+	transform: scale(1.2);
 }
 
 #input-modal {
