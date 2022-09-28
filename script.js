@@ -95,9 +95,9 @@ function createBookCards(catalog) {
 					catalog[entry].pages = pagesInput.value
 					catalog[entry].rating = ratingInput.value
 					catalog[entry].genre = genreInput.value
+					switchModal()
+					createBookCards(myLibrary)
 				}
-				switchModal()
-				createBookCards(myLibrary)
 			})
 		})
 		edit.appendChild(pencil)
