@@ -203,6 +203,10 @@ main {
 	align-self: center;
 }
 
+#input-modal.active {
+	display: block;
+}
+
 #input-modal ul {
 	margin: 0;
 	padding: 0;
