@@ -13,15 +13,23 @@ Book.prototype.addBookToLibrary = function() {
 	myLibrary.push(this)
 }
 
+Book.prototype.editBookInLibrary = function() {
+	this.author = document.getElementById('book-author').value
+	this.read = document.getElementById('book-read').checked
+	this.pages = document.getElementById('book-pages').value
+	this.rating = document.getElementById('book-rating').value
+	this.genre = document.getElementById('book-genre').value
+	createBookCards(myLibrary)
+}
+
+Book.prototype.deleteBookFromLibrary = function() {
+	myLibrary.splice(myLibrary.indexOf(this), 1)
+	createBookCards(myLibrary)
+}
+
 function switchModal() {
 	let modal = document.getElementById('input-modal')
-	if (modal.style.display == 'block') {
-		modal.style.display = 'none'
-		inputBookBtn.innerText = 'Add new book'
-	} else {
-		modal.style.display = 'block'
-		inputBookBtn.innerText = 'Close'
-	}
+	modal.classList.toggle('active')
 	let title = document.getElementById('book-title')
 	title.disabled = false
 	let form = document.querySelector('form')
@@ -58,6 +66,7 @@ function createBookCards(catalog) {
 		library.removeChild(library.lastChild)
 	}
 
+	// individually create a new card for each item in catalog
 	for (let entry in catalog) {
 		let book = document.createElement('div')
 		book.classList.add('card', 'flex')
@@ -66,38 +75,23 @@ function createBookCards(catalog) {
 		pencil.src = './assets/pencil.png'
 
 		let edit = document.createElement('button')
+		// edit.addEventListener('click', openEditModal)
 		edit.addEventListener('click', function() {
 			switchModal()
 
 			// set inputs equal to the book's values
-			let titleInput = document.getElementById('book-title')
-			let authorInput = document.getElementById('book-author')
-			let readInput = document.getElementById('book-read')
-			let pagesInput = document.getElementById('book-pages')
-			let ratingInput = document.getElementById('book-rating')
-			let genreInput = document.getElementById('book-genre')
-			titleInput.value = catalog[entry].title
-			titleInput.disabled = true
-			authorInput.value = catalog[entry].author
-			pagesInput.value = catalog[entry].pages
-			ratingInput.value = catalog[entry].rating
-			genreInput.value = catalog[entry].genre
-			if (catalog[entry].read == true) {
-				readInput.checked = true
-			}
+			document.getElementById('book-title').value = catalog[entry].title
+			document.getElementById('book-title').disabled = true
+			document.getElementById('book-author').value = catalog[entry].author
+			document.getElementById('book-read').checked = catalog[entry].read
+			document.getElementById('book-pages').value = catalog[entry].pages
+			document.getElementById('book-rating').value = catalog[entry].rating
+			document.getElementById('book-genre').value = catalog[entry].genre
 
-			// edit the book in catalog based on the title
 			addBookBtn.removeEventListener('click', addBook)
 			addBookBtn.addEventListener('click', function() {
-				if (catalog[entry].title == titleInput.value) {
-					catalog[entry].author = authorInput.value
-					catalog[entry].read = readInput.checked
-					catalog[entry].pages = pagesInput.value
-					catalog[entry].rating = ratingInput.value
-					catalog[entry].genre = genreInput.value
-					switchModal()
-					createBookCards(myLibrary)
-				}
+				catalog[entry].editBookInLibrary()
+				switchModal()
 			})
 		})
 		edit.appendChild(pencil)
@@ -143,13 +137,13 @@ function createBookCards(catalog) {
 
 
 // create cards to see
-book1 = new Book('The Hobbit', 'J.R.R. Tolkien', true, 300, 4, 'fantasy')
+let book1 = new Book('The Hobbit', 'J.R.R. Tolkien', true, 300, 4, 'fantasy')
 book1.addBookToLibrary()
 
-book2 = new Book('Animal Farm', 'George Orwell', false, 300, 4, 'Fantasy')
+let book2 = new Book('Animal Farm', 'George Orwell', false, 300, 4, 'Fantasy')
 book2.addBookToLibrary()
 
-book3 = new Book('The Giver', 'Lois Lowry', true, 208, 3.5, 'Dystopia')
+let book3 = new Book('The Giver', 'Lois Lowry', true, 208, 3.5, 'Dystopia')
 book3.addBookToLibrary()
 
 createBookCards(myLibrary)
