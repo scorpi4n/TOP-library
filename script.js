@@ -43,14 +43,14 @@ let resetBtn = document.querySelector('.discard')
 resetBtn.addEventListener('click', switchModal)
 
 function addBook() {
-	let title = document.getElementById('book-title').value
-	let author = document.getElementById('book-author').value
-	let read = document.getElementById('book-read').checked
-	let pages = document.getElementById('book-pages').value
-	let rating = document.getElementById('book-rating').value
-	let genre = document.getElementById('book-genre').value
-
-	let book = new Book(title, author, read, pages, rating, genre)
+	let book = new Book(
+		document.getElementById('book-title').value,
+		document.getElementById('book-author').value,
+		document.getElementById('book-read').checked,
+		document.getElementById('book-pages').value,
+		document.getElementById('book-rating').value,
+		document.getElementById('book-genre').value
+	)
 	book.addBookToLibrary()
 	switchModal()
 	createBookCards(myLibrary)
