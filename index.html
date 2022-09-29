@@ -56,6 +56,7 @@
 	</main>
 	<div id="input-modal" class="card">
 		<form action="#" method="post">
+			<h2>New book</h2>
 			<ul>
 				<li>
 					<label for="book-title">Title:</label>
@@ -85,6 +86,38 @@
 			<div class="buttons flex">
 				<button class="discard" type="reset">Discard</button>
 				<button class="submit" type="button">Submit</button>
+			</div>
+		</form>
+	</div>	
+	<div id="edit-modal" class="card">
+		<form action="#" method="post">
+			<h2>Edit book</h2>
+			<ul>
+				<li id="edit-title"></li>
+				<li>
+					<label for="edit-author">Author:</label>
+					<input id="edit-author" type="text">
+				</li>
+				<li>
+					<label for="edit-pages">How many pages are in the book?</label>
+					<input id="edit-pages" type="number" min="1" step="1">
+				</li>
+				<li>
+					<label for="edit-genre">What genre is the book?</label>
+					<input id="edit-genre" type="text">
+				</li>
+				<li>
+					<label for="edit-rating">How would you rate the book?</label>
+					<input id="edit-rating" type="number" max="5" min="1" step=".5">
+				</li>
+				<li>
+					<label for="edit-read">Have you read the book?</label>
+					<input id="edit-read" type="checkbox">
+				</li>
+			</ul>
+			<div class="buttons flex">
+				<button id="edit-discard" class="discard" type="reset">Discard</button>
+				<button id="edit-submit" class="submit" type="button">Submit</button>
 			</div>
 		</form>
 	</div>
