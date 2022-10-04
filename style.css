@@ -160,6 +160,7 @@ main {
 }
 
 .library .card {
+	position: relative;
 	transition: transform 200ms ease-in-out;
 
 	justify-content: space-between;
@@ -177,6 +178,29 @@ main {
 	text-transform: capitalize;
 }
 
+.library .card .edit,
+.library .card .delete {
+	padding: 0;
+	margin: 0;
+	border: none;
+	background: none;
+	width: 24px;
+	height: 24px;
+	position: absolute;
+	top: 8px;
+	right: 8px;
+}
+
+.library .card .delete {
+	top: 8px;
+	right: 40px;
+}
+
+.library .card .edit:hover,
+.library .card .delete:hover {
+	transform: scale(1.2);
+}
+
 #input-modal {
 	display: none;
 
@@ -184,6 +208,10 @@ main {
 	position: fixed;
 	justify-self: center;
 	align-self: center;
+}
+
+#input-modal.active {
+	display: block;
 }
 
 #input-modal ul {
@@ -227,6 +255,65 @@ main {
 }
 
 #input-modal .buttons button:focus-visible {
+	background-color: var(--clr-neutral-900);
+	color: var(--clr-neutral-50);
+	outline-offset: 5px;
+}
+
+#edit-modal {
+	display: none;
+
+	background-color: var(--clr-neutral-800);
+	position: fixed;
+	justify-self: center;
+	align-self: center;
+}
+
+#edit-modal.active {
+	display: block;
+}
+
+#edit-modal ul {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+}
+
+#edit-modal li {
+	padding: 8px;
+}
+
+#edit-modal input {
+	border: none;
+	border-radius: .5rem;
+	padding-left: 1ch;
+	background-color: var(--clr-neutral-50);
+}
+
+#edit-modal .buttons {
+	justify-content: space-evenly;
+}
+
+#edit-modal .buttons button {
+	border: none;
+	border-radius: 2rem;
+	background-color: var(--clr-neutral-200);
+	color: var(--clr-neutral-900);
+	padding: .5rem 1rem;
+	font-weight: bold;
+
+	transition: transform 200ms ease-out;
+}
+
+#edit-modal .buttons button:hover {
+	transform: scale(1.1);
+}
+
+#edit-modal .buttons button:active {
+	background-color: var(--clr-neutral-400);
+}
+
+#edit-modal .buttons button:focus-visible {
 	background-color: var(--clr-neutral-900);
 	color: var(--clr-neutral-50);
 	outline-offset: 5px;

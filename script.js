@@ -13,40 +13,65 @@ Book.prototype.addBookToLibrary = function() {
 	myLibrary.push(this)
 }
 
-function switchModal() {
+Book.prototype.editBookInLibrary = function() {
+	this.author = document.getElementById('edit-author').value
+	this.read = document.getElementById('edit-read').checked
+	this.pages = document.getElementById('edit-pages').value
+	this.rating = document.getElementById('edit-rating').value
+	this.genre = document.getElementById('edit-genre').value
+	createBookCards(myLibrary)
+}
+
+Book.prototype.deleteBookFromLibrary = function() {
+	myLibrary.splice(myLibrary.indexOf(this), 1)
+	createBookCards(myLibrary)
+}
+
+function switchInputModal() {
 	let modal = document.getElementById('input-modal')
-	if (modal.style.display == 'block') {
-		modal.style.display = 'none'
-		inputBookBtn.innerText = 'Add new book'
-	} else {
-		modal.style.display = 'block'
-		inputBookBtn.innerText = 'Close'
-	}
+	modal.classList.toggle('active')
+	let title = document.getElementById('book-title')
+	title.disabled = false
+	let form = document.querySelector('form')
+	form.reset()
+}
+
+function switchEditModal() {
+	let modal = document.getElementById('edit-modal')
+	modal.classList.toggle('active')
 	let form = document.querySelector('form')
 	form.reset()
 }
 
 let inputBookBtn = document.getElementById('add-book')
-inputBookBtn.addEventListener('click', switchModal)
+inputBookBtn.addEventListener('click', switchInputModal)
 
-let resetBtn = document.querySelector('.discard')
-resetBtn.addEventListener('click', switchModal)
+let inputResetBtn = document.querySelector('.discard')
+inputResetBtn.addEventListener('click', switchInputModal)
+let editResetBtn = document.getElementById('edit-discard')
+editResetBtn.addEventListener('click', switchEditModal)
+
+function addBook() {
+	let book = new Book(
+		document.getElementById('book-title').value,
+		document.getElementById('book-author').value,
+		document.getElementById('book-read').checked,
+		document.getElementById('book-pages').value,
+		document.getElementById('book-rating').value,
+		document.getElementById('book-genre').value
+	)
+	book.addBookToLibrary()
+	switchInputModal()
+	createBookCards(myLibrary)
+}
 
 let addBookBtn = document.querySelector('.submit')
-addBookBtn.addEventListener('click', function() {
-	let title = document.getElementById('book-title').value
-	let author = document.getElementById('book-author').value
-	let read = document.getElementById('book-read').checked
-	console.log(read.value)
-	let pages = document.getElementById('book-pages').value
-	let rating = document.getElementById('book-rating').value
-	let genre = document.getElementById('book-genre').value
+addBookBtn.addEventListener('click', addBook)
 
-	book = new Book(title, author, read, pages, rating, genre)
-	book.addBookToLibrary()
-	switchModal()
-	createBookCards(myLibrary)
-})
+let editBookBtn = document.getElementById('edit-submit')
+
+// ensures that an event listener isn't applied more than once
+let helper = 0
 
 function createBookCards(catalog) {
 	let library = document.querySelector('.library')
@@ -55,9 +80,46 @@ function createBookCards(catalog) {
 		library.removeChild(library.lastChild)
 	}
 
+	// individually create a new card for each item in catalog
 	for (let entry in catalog) {
 		let book = document.createElement('div')
 		book.classList.add('card', 'flex')
+
+		let pencil = document.createElement('img')
+		pencil.src = './assets/pencil.png'
+
+		let edit = document.createElement('button')
+		edit.addEventListener('click', function() {
+			switchEditModal()
+
+			// set inputs equal to the book's values
+			document.getElementById('edit-title').innerHTML = `Title: <strong>${catalog[entry].title}</strong>`
+			document.getElementById('edit-author').value = catalog[entry].author
+			document.getElementById('edit-read').checked = catalog[entry].read
+			document.getElementById('edit-pages').value = catalog[entry].pages
+			document.getElementById('edit-rating').value = catalog[entry].rating
+			document.getElementById('edit-genre').value = catalog[entry].genre
+
+			for (helper; helper == 0; helper++)
+			editBookBtn.addEventListener('click', function() {
+				catalog[entry].editBookInLibrary()
+				switchEditModal()
+			})
+		})
+		edit.appendChild(pencil)
+		edit.classList.add('edit')
+		book.appendChild(edit)
+
+		let trash = document.createElement('img')
+		trash.src = './assets/delete.png'
+
+		let remove = document.createElement('button')
+		remove.addEventListener('click', function() {
+			catalog[entry].deleteBookFromLibrary()
+		})
+		remove.appendChild(trash)
+		remove.classList.add('delete')
+		book.appendChild(remove)
 
 		let bookName = document.createElement('div')
 		book.appendChild(bookName)
@@ -74,9 +136,9 @@ function createBookCards(catalog) {
 		let bookPages = document.createElement('li')
 		let bookRating = document.createElement('li')
 		let bookGenre = document.createElement('li')
-		bookPages.innerText = catalog[entry].pages
-		bookRating.innerText = catalog[entry].rating
-		bookGenre.innerText = catalog[entry].genre
+		bookPages.innerText = `Pages: ${catalog[entry].pages}`
+		bookRating.innerText = `My Rating: ${catalog[entry].rating}/5`
+		bookGenre.innerText = `Genre: ${catalog[entry].genre}`
 		bookInfo.appendChild(bookRead)
 		bookInfo.appendChild(bookPages)
 		bookInfo.appendChild(bookRating)
@@ -93,3 +155,10 @@ function createBookCards(catalog) {
 		library.appendChild(book)
 	}
 }
+
+// create welcome screen
+let library = document.querySelector('.library')
+let header1 = document.createElement('h1')
+header1.style.gridColumn = '1 / -1'
+header1.innerText = "Welcome! Add books with the button in the top right corner. Once you've added books to your library, you're free to edit them if something is wrong or delete them if you so desire."
+library.appendChild(header1)
