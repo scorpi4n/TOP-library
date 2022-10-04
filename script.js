@@ -89,7 +89,6 @@ function createBookCards(catalog) {
 		pencil.src = './assets/pencil.png'
 
 		let edit = document.createElement('button')
-		// edit.addEventListener('click', openEditModal)
 		edit.addEventListener('click', function() {
 			switchEditModal()
 
@@ -110,6 +109,17 @@ function createBookCards(catalog) {
 		edit.appendChild(pencil)
 		edit.classList.add('edit')
 		book.appendChild(edit)
+
+		let trash = document.createElement('img')
+		trash.src = './assets/delete.png'
+
+		let remove = document.createElement('button')
+		remove.addEventListener('click', function() {
+			catalog[entry].deleteBookFromLibrary()
+		})
+		remove.appendChild(trash)
+		remove.classList.add('delete')
+		book.appendChild(remove)
 
 		let bookName = document.createElement('div')
 		book.appendChild(bookName)
@@ -146,17 +156,9 @@ function createBookCards(catalog) {
 	}
 }
 
-
-
-
-// create cards to see
-let book1 = new Book('The Hobbit', 'J.R.R. Tolkien', true, 300, 4, 'fantasy')
-book1.addBookToLibrary()
-
-let book2 = new Book('Animal Farm', 'George Orwell', false, 300, 4, 'Fantasy')
-book2.addBookToLibrary()
-
-let book3 = new Book('The Giver', 'Lois Lowry', true, 208, 3.5, 'Dystopia')
-book3.addBookToLibrary()
-
-createBookCards(myLibrary)
+// create welcome screen
+let library = document.querySelector('.library')
+let header1 = document.createElement('h1')
+header1.style.gridColumn = '1 / -1'
+header1.innerText = "Welcome! Add books with the button in the top right corner. Once you've added books to your library, you're free to edit them if something is wrong or delete them if you so desire."
+library.appendChild(header1)
