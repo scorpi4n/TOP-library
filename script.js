@@ -27,29 +27,56 @@ Book.prototype.deleteBookFromLibrary = function() {
 	createBookCards(myLibrary)
 }
 
-function switchInputModal() {
-	let modal = document.getElementById('input-modal')
-	modal.classList.toggle('active')
-	let title = document.getElementById('book-title')
-	title.disabled = false
-	let form = document.querySelector('form')
-	form.reset()
-}
+const editModal = (function() {
+	const elements = (function() {
+		let editResetBtn = document.getElementById('edit-discard')
+		editResetBtn.addEventListener('click', toggle)
 
-function switchEditModal() {
-	let modal = document.getElementById('edit-modal')
-	modal.classList.toggle('active')
-	let form = document.querySelector('form')
-	form.reset()
-}
+		let submitBtn = document.getElementById('edit-submit')
+
+		return {
+			submitBtn
+		}
+	})()
+
+	function toggle() {
+		let modal = document.getElementById('edit-modal')
+		modal.classList.toggle('active')
+		let form = document.querySelector('form')
+		form.reset()
+	}
+
+	return {
+		elements,
+		toggle
+	}
+})()
+
+const inputModal = (function() {
+	const elements = (function() {
+		let inputResetBtn = document.querySelector('.discard')
+		inputResetBtn.addEventListener('click', toggle)
+
+		let submitBtn = document.querySelector('.submit')
+		submitBtn.addEventListener('click', addBook)
+	})()
+
+	function toggle() {
+		let modal = document.getElementById('input-modal')
+		modal.classList.toggle('active')
+		let title = document.getElementById('book-title')
+		title.disabled = false
+		let form = document.querySelector('form')
+		form.reset()
+	}
+
+	return {
+		toggle
+	}
+})()
 
 let inputBookBtn = document.getElementById('add-book')
-inputBookBtn.addEventListener('click', switchInputModal)
-
-let inputResetBtn = document.querySelector('.discard')
-inputResetBtn.addEventListener('click', switchInputModal)
-let editResetBtn = document.getElementById('edit-discard')
-editResetBtn.addEventListener('click', switchEditModal)
+inputBookBtn.addEventListener('click', inputModal.toggle)
 
 function addBook() {
 	let book = new Book(
@@ -61,14 +88,9 @@ function addBook() {
 		document.getElementById('book-genre').value
 	)
 	book.addBookToLibrary()
-	switchInputModal()
+	inputModal.toggle()
 	createBookCards(myLibrary)
 }
-
-let addBookBtn = document.querySelector('.submit')
-addBookBtn.addEventListener('click', addBook)
-
-let editBookBtn = document.getElementById('edit-submit')
 
 // ensures that an event listener isn't applied more than once
 let helper = 0
@@ -90,7 +112,7 @@ function createBookCards(catalog) {
 
 		let edit = document.createElement('button')
 		edit.addEventListener('click', function() {
-			switchEditModal()
+			editModal.toggle()
 
 			// set inputs equal to the book's values
 			document.getElementById('edit-title').innerHTML = `Title: <strong>${catalog[entry].title}</strong>`
@@ -101,9 +123,9 @@ function createBookCards(catalog) {
 			document.getElementById('edit-genre').value = catalog[entry].genre
 
 			for (helper; helper == 0; helper++)
-			editBookBtn.addEventListener('click', function() {
+			editModal.elements.submitBtn.addEventListener('click', function() {
 				catalog[entry].editBookInLibrary()
-				switchEditModal()
+				editModal.toggle()
 			})
 		})
 		edit.appendChild(pencil)
