@@ -1,34 +1,36 @@
 let myLibrary = []
 
-function Book(title, author, read, pages, rating, genre) {
-	this.title = title
-	this.author = author
-	this.read = read
-	this.pages = pages
-	this.rating = rating
-	this.genre = genre
+class Book {
+	constructor(title, author, read, pages, rating, genre) {
+		this.title = title
+		this.author = author
+		this.read = read
+		this.pages = pages
+		this.rating = rating
+		this.genre = genre
+	}
+
+	addBookToLibrary() {
+		myLibrary.push(this)
+	}
+
+	editBookInLibrary() {
+		this.author = document.getElementById('edit-author').value
+		this.read = document.getElementById('edit-read').checked
+		this.pages = document.getElementById('edit-pages').value
+		this.rating = document.getElementById('edit-rating').value
+		this.genre = document.getElementById('edit-genre').value
+		createBookCards(myLibrary)
+	}
+
+	deleteBookFromLibrary() {
+		myLibrary.splice(myLibrary.indexOf(this), 1)
+		createBookCards(myLibrary)
+	}
 }
 
-Book.prototype.addBookToLibrary = function() {
-	myLibrary.push(this)
-}
-
-Book.prototype.editBookInLibrary = function() {
-	this.author = document.getElementById('edit-author').value
-	this.read = document.getElementById('edit-read').checked
-	this.pages = document.getElementById('edit-pages').value
-	this.rating = document.getElementById('edit-rating').value
-	this.genre = document.getElementById('edit-genre').value
-	createBookCards(myLibrary)
-}
-
-Book.prototype.deleteBookFromLibrary = function() {
-	myLibrary.splice(myLibrary.indexOf(this), 1)
-	createBookCards(myLibrary)
-}
-
-const editModal = (function() {
-	const elements = (function() {
+const editModal = (function () {
+	const elements = (function () {
 		let editResetBtn = document.getElementById('edit-discard')
 		editResetBtn.addEventListener('click', toggle)
 
@@ -52,8 +54,8 @@ const editModal = (function() {
 	}
 })()
 
-const inputModal = (function() {
-	const elements = (function() {
+const inputModal = (function () {
+	const elements = (function () {
 		let inputResetBtn = document.querySelector('.discard')
 		inputResetBtn.addEventListener('click', toggle)
 
@@ -111,7 +113,7 @@ function createBookCards(catalog) {
 		pencil.src = './assets/pencil.png'
 
 		let edit = document.createElement('button')
-		edit.addEventListener('click', function() {
+		edit.addEventListener('click', function () {
 			editModal.toggle()
 
 			// set inputs equal to the book's values
@@ -123,10 +125,10 @@ function createBookCards(catalog) {
 			document.getElementById('edit-genre').value = catalog[entry].genre
 
 			for (helper; helper == 0; helper++)
-			editModal.elements.submitBtn.addEventListener('click', function() {
-				catalog[entry].editBookInLibrary()
-				editModal.toggle()
-			})
+				editModal.elements.submitBtn.addEventListener('click', function () {
+					catalog[entry].editBookInLibrary()
+					editModal.toggle()
+				})
 		})
 		edit.appendChild(pencil)
 		edit.classList.add('edit')
@@ -136,7 +138,7 @@ function createBookCards(catalog) {
 		trash.src = './assets/delete.png'
 
 		let remove = document.createElement('button')
-		remove.addEventListener('click', function() {
+		remove.addEventListener('click', function () {
 			catalog[entry].deleteBookFromLibrary()
 		})
 		remove.appendChild(trash)
